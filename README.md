@@ -1,4 +1,4 @@
-**Project Name:** Alinnea Ai
+**Project Name: [Alinnea Ai](https://en.wikipedia.org/wiki/Alinea)**
 
 **Application Description:**  
 A Chrome extension that brings AI-powered writing suggestions directly into Google Docs. Instantly generate and then insert or replace text with context-aware LLM completions.
