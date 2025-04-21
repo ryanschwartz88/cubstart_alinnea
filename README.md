@@ -5,8 +5,8 @@ A Chrome extension that brings AI-powered writing suggestions directly into Goog
 
 **Features + Tools:**
 
-- Contextual AI suggestions/completetions: Groq API(user can choose the model via popup)
-- Insert/replace at cursor and read document context for LLM: Google Docs API, JavaScript
+- Contextual AI suggestions/completetions: Groq API (user can choose the model)
+- Insert/replace and read document: Google Docs API, JavaScript
 - Floating chat UI: HTML/CSS/JavaScript
 - Settings popup: Chrome Extensions API
 
