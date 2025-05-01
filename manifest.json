@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Alinnea - AI Integration for Google Docs",
+  "version": "1.0.0",
+  "description": "Integrate AI-powered writing suggestions into Google Docs",
+  "permissions": [
+    "storage",
+    "identity",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://docs.google.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/alinnea16.png",
+      "48": "icons/alinnea48.png",
+      "128": "icons/alinnea128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://docs.google.com/document/d/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["popup/popup.html", "icons/*"],
+      "matches": ["https://docs.google.com/*"]
+    }
+  ],
+  "oauth2": {
+    "client_id": "455455940435-mgs89sojooj2k5e24aku3hmoiobkjg0q.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/documents"]
+  }
+}

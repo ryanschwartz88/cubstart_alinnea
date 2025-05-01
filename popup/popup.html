@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALinnea Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Alinnea Settings</h1>
+    </header>
+    
+    <main>
+      <div class="settings-group">
+        <h2>LLM Configuration</h2>
+        
+        <div class="form-group">
+          <label for="apiKey">Groq API Key</label>
+          <div class="api-key-container">
+            <input type="password" id="apiKey" placeholder="Enter your Groq API key">
+            <button id="toggleApiKey" title="Toggle visibility">Show</button>
+          </div>
+          <p class="hint">Get your API key from <a href="https://console.groq.com/keys" target="_blank">Groq Cloud Console</a></p>
+        </div>
+        
+        <div class="form-group">
+          <label for="model">Model</label>
+          <select id="model">
+            <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
+            <option value="llama-3.3-70b-versatile">Llama 3.1 70B Versatile</option>
+            <option value="gemma2-9b-it">Gemma 9B-IT</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="settings-group">
+        <h2>Generation Settings</h2>
+        
+        <div class="form-group">
+          <label for="maxTokens">Maximum Response Length</label>
+          <div class="range-container">
+            <input type="range" id="maxTokens" min="256" max="4096" step="256" value="2048">
+            <span id="maxTokensValue">2048 tokens</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="temperature">Temperature</label>
+          <div class="range-container">
+            <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+            <span id="temperatureValue">0.7</span>
+          </div>
+        </div>
+      </div>
+    
+    <footer>
+      <button id="saveButton" class="primary">Save Settings</button>
+      <div id="status"></div>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
