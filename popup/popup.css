@@ -60,7 +60,35 @@ h2 {
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-label {
+  margin-left: 6px;
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.range-container {
+  display: flex;
+  align-items: center;
+}
+
+.range-container.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 label {

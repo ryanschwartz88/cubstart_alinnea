@@ -1,415 +1,359 @@
-/* styles.css */
-
-/* Base styles */
 :root {
-    --alinnea-primary: black;
-    --alinnea-text: #202124;
-    --alinnea-background: rgba(251, 248, 255, 0.7);
-    --alinnea-border: rgba(0, 0, 0, 0.5);
-    --alinnea-shadow: 0 2px 10px rgba(60, 64, 67, 0.15);
-  }
-  
-  /* Floating action button (overrides for new UI) */
-  /* Floating Button */
-  #alinnea-floating-button,
-  .alinnea-floating-button {
-    position: fixed;
-    right: 250px;
-    bottom: 32px;
-    width: 56px;
-    height: 56px;
-    background: #111;
-    border-radius: 50%;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: box-shadow 0.2s;
-    z-index: 2147483647;
-  }
-  
-  /* FAB Icon */
-  .alinnea-fab-icon {
-    display: block;
-    width: 24px;
-    height: 24px;
-    position: relative;
-  }
-  
-  /* FAB Icon Lines */
-  .alinnea-fab-icon:before,
-  .alinnea-fab-icon:after {
-    content: '';
-    position: absolute;
-    left: 11px;
-    top: 2px;
-    width: 2px;
-    height: 20px;
-    background: #fff;
-    border-radius: 1px;
-    transition: transform 0.8s, opacity 0.2s;
-  }
-  
-  /* FAB Icon Rotations */
-  .alinnea-fab-icon:after {
-    transform: rotate(90deg);
-  }
-  .alinnea-fab-icon.open:before {
-    transform: rotate(45deg);
-  }
-  .alinnea-fab-icon.open:after {
-    transform: rotate(-45deg);
-  }
-  
-  /* Basic chat container style */
-  #alinnea-chat-container {
-    position: fixed;
-    right: 32px;
-    bottom: 100px;
-    min-width: 340px;
-    max-width: 90vw;
-    background: #222;
-    color: #fff;
-    border-radius: 18px 18px 12px 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.34);
-    transition: opacity 0.25s, transform 0.25s;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 2147483647;
-  }
-  
-  #alinnea-chat-container {
-    position: fixed;
-    bottom: 100px;
-    right: 32px;
-    left: auto;
-    transform: none;
-    width: 400px;
-    height: 500px;
-    background-color: var(--alinnea-background);
-    border-radius: 8px;
-    box-shadow: var(--alinnea-shadow);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9999;
-  }
-  
-  /* Chat container */
-  #alinnea-chat-container {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 500px;
-    background-color: var(--alinnea-background);
-    border-radius: 24px;
-    box-shadow: var(--alinnea-shadow);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9999;
-  }
-  
-  #alinnea-chat-container.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-  #alinnea-chat-container.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  /* Header */
-  .alinnea-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--alinnea-border);
-  }
-  
-  .alinnea-header-left {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  
-  .alinnea-header-right {
-    display: flex;
-    gap: 8px;
-  }
-  
-  #alinnea-new-chat {
-    background-color: #fff;
-    border: 2px solid #111;
-    color: #111;
-    width: 120px;
-    display: block;
-    margin: 16px auto 8px auto;
-    padding: 6px 0;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    transition: background 0.15s, color 0.15s, border 0.15s;
-  }
-  
-  #alinnea-new-chat:hover {
-    background-color: #f1f1f1;
-    border-color: #111;
-  }
-  
-  #alinnea-settings {
-    background-color: transparent;
-    border: none;
-    color: var(--alinnea-text);
-    font-size: 16px;
-    cursor: pointer;
-    padding: 4px;
-  }
-  
-  #alinnea-settings:hover {
-    color: var(--alinnea-primary);
-  }
-  
-  #alinnea-close {
-    background-color: transparent;
-    border: none;
-    color: var(--alinnea-text);
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  /* Response area */
-  #alinnea-response-area {
-    flex: 1;
-    padding: 16px;
-    overflow-y: auto;
-    background-color: transparent;
-  }
-  
-  .alinnea-response {
-    background-color: white;
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.1);
-    margin-bottom: 12px;
-  }
-  
-  .alinnea-response-content {
-    margin-bottom: 12px;
-    color: var(--alinnea-text);
-    line-height: 1.5;
-  }
-  
-  .alinnea-action-buttons {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .alinnea-insert-button,
-  .alinnea-replace-button {
-    padding: 6px 12px;
-    border-radius: 4px;
-    border: 1px solid var(--alinnea-border);
-    background-color: white;
-    color: var(--alinnea-text);
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .alinnea-insert-button:hover,
-  .alinnea-replace-button:hover {
-    background-color: #f1f3f4;
-  }
-  
-  /* Controls area */
-  .alinnea-controls {
-    display: flex;
-    justify-content: flex-start;
-    padding: 8px 16px;
-    border-top: 1px solid var(--alinnea-border);
-    gap: 8px;
-  }
-  
-  #alinnea-undo,
-  #alinnea-redo {
-    background-color: transparent;
-    border: 1px solid var(--alinnea-border);
-    border-radius: 4px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
-  #alinnea-undo span,
-  #alinnea-redo span {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  #alinnea-undo:hover,
-  #alinnea-redo:hover {
-    background-color: #f1f3f4;
-  }
-  
-  /* Material Icon Sizes */
-  #alinnea-undo .material-icons,
-  #alinnea-redo .material-icons {
-    font-size: 20px;
-  }
-  #alinnea-submit .material-icons {
-    font-size: 24px;
-  }
-  #alinnea-collapse-toggle .material-icons {
-    font-size: 32px;
-  }
-  
-  /* Input area */
-  .alinnea-input-area {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    border-top: 1px solid var(--alinnea-border);
-  }
-  
-  #alinnea-chat-container.collapsed .alinnea-input-area {
-    border-top: none;
-  }
-  
-  #alinnea-prompt {
-    background-color: transparent;
-    flex: 1;
-    border: 1px solid var(--alinnea-border);
-    border-radius: 8px;
-    padding: 8px 12px;
-    resize: none;
-    height: auto;
-    min-height: 24px;
-    max-height: 200px;
-    overflow-y: hidden;
-    font-family: inherit;
-    font-size: 14px;
-  }
-  
-  #alinnea-prompt:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgb(230, 158, 233);
-  }
-  
-  #alinnea-submit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 12px;
-    width: auto;
-    height: auto;
-    border-radius: 8px;
-    background-color: #000;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    align-self: center;
-  }
-  
-  #alinnea-submit:hover {
-    background-color: #ffffff;
-    color: #000;
-    border-color: #111;
-  }
-  
-  /* Utility classes */
-  .hidden {
-    display: none;
-  }
-  
-  .alinnea-loading {
-    padding: 12px;
-    text-align: center;
-    color: #5f6368;
-  }
-  
-  .alinnea-error {
-    padding: 12px;
-    color: #d93025;
-    background-color: #fee;
-    border-radius: 4px;
-  }
-  
-  /* Toast notifications */
-  .alinnea-toast {
-    position: fixed;
-    bottom: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #323232;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 4px;
-    z-index: 10000;
-    transition: bottom 0.3s ease;
-  }
-  
-  .alinnea-toast-visible {
-    bottom: 24px;
-  }
-  
-  .alinnea-toast-error {
-    background-color: #d93025;
-  }
-  
-  /* Code blocks */
-  pre {
-    background-color: #f1f3f4;
-    padding: 12px;
-    border-radius: 4px;
-    overflow-x: auto;
-  }
-  
-  code {
-    font-family: monospace;
-    background-color: #f1f3f4;
-    padding: 2px 4px;
-    border-radius: 2px;
-  }
-  
-  #alinnea-chat-container {
-    backdrop-filter: blur(8px) saturate(140%);
-    -webkit-backdrop-filter: blur(8px) saturate(140%);
-  }
-  
-  #alinnea-chat-container {
-    background-color: var(--alinnea-background);
-  }
-  
-  /* Collapsed */
-  #alinnea-chat-container.collapsed {
-    height: auto !important;
-  }
-  
-  #alinnea-chat-container.collapsed .alinnea-header,
-  #alinnea-chat-container.collapsed #alinnea-response-area,
-  #alinnea-chat-container.collapsed #alinnea-new-chat {
-    display: none;
-  }
-  
-  /* Collapse toggle */
-  #alinnea-collapse-toggle {
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    margin-left: 8px;
-    cursor: pointer;
-    align-self: center;
-  }
-  
+  --alinnea-primary: black;
+  --alinnea-text: #202124;
+  --alinnea-background: rgba(251, 248, 255, 0.7);
+  --alinnea-border: rgba(0, 0, 0, 0.5);
+  --alinnea-shadow: 0 2px 10px rgba(60, 64, 67, 0.15);
+}
+
+#alinnea-floating-button,
+.alinnea-floating-button {
+  position: fixed;
+  right: 250px;
+  bottom: 32px;
+  width: 56px;
+  height: 56px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  z-index: 99999;
+}
+
+.alinnea-fab-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.alinnea-fab-icon:before,
+.alinnea-fab-icon:after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 2px;
+  width: 2px;
+  height: 20px;
+  background: #fff;
+  border-radius: 1px;
+  transition: transform 0.8s, opacity 0.2s;
+}
+
+.alinnea-fab-icon:after {
+  transform: rotate(90deg);
+}
+.alinnea-fab-icon.open:before {
+  transform: rotate(45deg);
+}
+.alinnea-fab-icon.open:after {
+  transform: rotate(-45deg);
+}
+
+#alinnea-chat-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 500px;
+  background-color: var(--alinnea-background, #222);
+  color: var(--alinnea-text, #fff);
+  border-radius: 24px;
+  box-shadow: var(--alinnea-shadow, 0 8px 32px rgba(0,0,0,0.34));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 99999;
+  transition: opacity 0.25s, transform 0.25s;
+  opacity: 1;
+  pointer-events: auto;
+}
+#alinnea-chat-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+#alinnea-chat-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+#alinnea-chat-container.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alinnea-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--alinnea-border);
+}
+
+.alinnea-header-left {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.alinnea-header-right {
+  display: flex;
+  gap: 8px;
+}
+
+#alinnea-new-chat {
+  background-color: #fff;
+  border: 2px solid #111;
+  color: #111;
+  width: 120px;
+  display: block;
+  margin: 16px auto 8px auto;
+  padding: 6px 0;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: color 0.15s, border 0.15s;
+}
+
+#alinnea-new-chat:hover {
+  background-color: #f1f1f1;
+  border-color: #111;
+}
+
+#alinnea-settings {
+  background-color: transparent;
+  border: none;
+  color: var(--alinnea-text);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+#alinnea-settings:hover {
+  color: var(--alinnea-primary);
+}
+
+#alinnea-close {
+  background-color: transparent;
+  border: none;
+  color: var(--alinnea-text);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#alinnea-response-area {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background-color: transparent;
+}
+
+.alinnea-response {
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.1);
+  margin-bottom: 12px;
+}
+
+.alinnea-response-content {
+  margin-bottom: 12px;
+  color: var(--alinnea-text);
+  line-height: 1.5;
+}
+
+.alinnea-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.alinnea-insert-button,
+.alinnea-copy-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--alinnea-border);
+  background-color: white;
+  color: var(--alinnea-text);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.alinnea-insert-button:hover,
+.alinnea-copy-button:hover {
+  background-color: #f1f3f4;
+}
+
+.alinnea-controls {
+  display: flex;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  border-top: 1px solid var(--alinnea-border);
+  gap: 8px;
+}
+
+#alinnea-undo,
+#alinnea-redo {
+  background-color: transparent;
+  border: 1px solid var(--alinnea-border);
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#alinnea-undo span,
+#alinnea-redo span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#alinnea-undo:hover,
+#alinnea-redo:hover {
+  background-color: #f1f3f4;
+}
+
+#alinnea-undo .material-icons,
+#alinnea-redo .material-icons {
+  font-size: 20px;
+}
+#alinnea-submit .material-icons {
+  font-size: 24px;
+}
+#alinnea-collapse-toggle .material-icons {
+  font-size: 18px;
+}
+
+.alinnea-input-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--alinnea-border);
+}
+
+#alinnea-chat-container.collapsed .alinnea-input-area {
+  border-top: none;
+}
+
+#alinnea-prompt {
+  background-color: transparent;
+  flex: 1;
+  border: 1px solid var(--alinnea-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  resize: none;
+  height: auto;
+  min-height: 24px;
+  max-height: 200px;
+  overflow-y: hidden;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+#alinnea-prompt:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(230, 158, 233);
+}
+
+#alinnea-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 12px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  background-color: #000;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  align-self: center;
+}
+
+#alinnea-submit:hover {
+  background-color: #ffffff;
+  color: #000;
+  border-color: #111;
+}
+
+.hidden {
+  display: none;
+}
+
+.alinnea-loading {
+  padding: 12px;
+  text-align: center;
+  color: #5f6368;
+}
+
+.alinnea-error {
+  padding: 12px;
+  color: #d93025;
+  background-color: #fee;
+  border-radius: 4px;
+}
+
+.alinnea-toast {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #323232;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  z-index: 10000;
+  transition: bottom 0.3s ease;
+}
+
+.alinnea-toast-visible {
+  bottom: 24px;
+}
+
+.alinnea-toast-error {
+  background-color: #d93025;
+}
+
+#alinnea-chat-container {
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+}
+
+#alinnea-chat-container.collapsed {
+  height: auto !important;
+}
+
+#alinnea-chat-container.collapsed .alinnea-header,
+#alinnea-chat-container.collapsed #alinnea-response-area,
+#alinnea-chat-container.collapsed #alinnea-new-chat {
+  display: none;
+}
+
+#alinnea-collapse-toggle {
+  background: #E5E5E5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+#alinnea-collapse-toggle .material-icons {
+  font-size: 32px;
+}

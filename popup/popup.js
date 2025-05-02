@@ -1,27 +1,30 @@
-// popup.js - Handles settings functionality for the Alinnea extension
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Get references to DOM elements
   const apiKeyInput = document.getElementById('apiKey');
   const toggleApiKeyButton = document.getElementById('toggleApiKey');
   const modelSelect = document.getElementById('model');
+  const enableMaxTokens = document.getElementById('enableMaxTokens');
   const maxTokensInput = document.getElementById('maxTokens');
   const maxTokensValue = document.getElementById('maxTokensValue');
+  const maxTokensContainer = document.getElementById('maxTokensContainer');
+  const enableTemperature = document.getElementById('enableTemperature');
   const temperatureInput = document.getElementById('temperature');
   const temperatureValue = document.getElementById('temperatureValue');
+  const temperatureContainer = document.getElementById('temperatureContainer');
   const saveButton = document.getElementById('saveButton');
   const statusElement = document.getElementById('status');
   
-  // Load saved settings
   loadSettings();
   
-  // Set up event listeners
   toggleApiKeyButton.addEventListener('click', toggleApiKeyVisibility);
   maxTokensInput.addEventListener('input', updateMaxTokensDisplay);
   temperatureInput.addEventListener('input', updateTemperatureDisplay);
+  enableMaxTokens.addEventListener('change', toggleMaxTokens);
+  enableTemperature.addEventListener('change', toggleTemperature);
   saveButton.addEventListener('click', saveSettings);
   
-  // Toggle API key visibility
+  toggleMaxTokens();
+  toggleTemperature();
+  
   function toggleApiKeyVisibility() {
     if (apiKeyInput.type === 'password') {
       apiKeyInput.type = 'text';
@@ -31,61 +34,99 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleApiKeyButton.textContent = 'Show';
     }
   }
-  
-  // Update max tokens display
+
   function updateMaxTokensDisplay() {
     maxTokensValue.textContent = `${maxTokensInput.value} tokens`;
   }
   
-  // Update temperature display
   function updateTemperatureDisplay() {
     temperatureValue.textContent = temperatureInput.value;
   }
   
-  // Load saved settings from chrome.storage
+  function toggleMaxTokens() {
+    const isEnabled = enableMaxTokens.checked;
+    maxTokensInput.disabled = !isEnabled;
+    maxTokensContainer.classList.toggle('disabled', !isEnabled);
+  }
+  
+  function toggleTemperature() {
+    const isEnabled = enableTemperature.checked;
+    temperatureInput.disabled = !isEnabled;
+    temperatureContainer.classList.toggle('disabled', !isEnabled);
+  }
+  
   function loadSettings() {
     console.log('Loading settings from storage...');
     chrome.storage.sync.get(
       {
         apiKey: '',
-        model: 'llama-3.1-8b-instant',
-        maxTokens: 2048,
-        temperature: 0.7
+        model: 'llama-3.1-8b-instant'
       },
       (items) => {
         console.log('Retrieved settings:', { 
           apiKey: items.apiKey ? '(API key exists)' : '(empty)', 
           model: items.model,
-          maxTokens: items.maxTokens,
-          temperature: items.temperature 
+          maxTokens: items.maxTokens !== undefined ? items.maxTokens : 'not set',
+          temperature: items.temperature !== undefined ? items.temperature : 'not set'
         });
         
         apiKeyInput.value = items.apiKey;
         modelSelect.value = items.model;
-        maxTokensInput.value = items.maxTokens;
-        temperatureInput.value = items.temperature;
         
-        // Update displays
+        // Handle optional maxTokens
+        if (items.maxTokens !== undefined) {
+          enableMaxTokens.checked = true;
+          maxTokensInput.value = items.maxTokens;
+        } else {
+          enableMaxTokens.checked = false;
+          maxTokensInput.value = 2048; // Default value
+        }
+        
+        // Handle optional temperature
+        if (items.temperature !== undefined) {
+          enableTemperature.checked = true;
+          temperatureInput.value = items.temperature;
+        } else {
+          enableTemperature.checked = false;
+          temperatureInput.value = 0.7; // Default value
+        }
+        
         updateMaxTokensDisplay();
         updateTemperatureDisplay();
+        toggleMaxTokens();
+        toggleTemperature();
       }
     );
   }
   
-  // Save settings to chrome.storage
   function saveSettings() {
+    // Start with required settings
     const settings = {
       apiKey: apiKeyInput.value,
-      model: modelSelect.value,
-      maxTokens: parseInt(maxTokensInput.value),
-      temperature: parseFloat(temperatureInput.value)
+      model: modelSelect.value
     };
+    
+    // Only add maxTokens if enabled
+    if (enableMaxTokens.checked) {
+      settings.maxTokens = parseInt(maxTokensInput.value);
+    } else {
+      // Remove maxTokens from storage if it exists
+      chrome.storage.sync.remove('maxTokens');
+    }
+    
+    // Only add temperature if enabled
+    if (enableTemperature.checked) {
+      settings.temperature = parseFloat(temperatureInput.value);
+    } else {
+      // Remove temperature from storage if it exists
+      chrome.storage.sync.remove('temperature');
+    }
     
     console.log('Saving settings to storage:', { 
       apiKey: settings.apiKey ? '(API key provided)' : '(empty)', 
       model: settings.model,
-      maxTokens: settings.maxTokens,
-      temperature: settings.temperature 
+      maxTokens: enableMaxTokens.checked ? settings.maxTokens : 'not set',
+      temperature: enableTemperature.checked ? settings.temperature : 'not set'
     });
     
     chrome.storage.sync.set(settings, () => {
@@ -95,19 +136,16 @@ document.addEventListener('DOMContentLoaded', () => {
         statusElement.className = 'error';
       } else {
         console.log('Settings saved successfully!');
-        // Show success message
         statusElement.textContent = 'Settings saved!';
         statusElement.className = 'success';
         
-        // Verify immediately that the API key was saved
         chrome.storage.sync.get(['apiKey'], (items) => {
           console.log('Verification - API key in storage:', items.apiKey ? '(exists)' : '(empty)');
         });
         
-        // Clear status message after 2 seconds
         setTimeout(() => {
           statusElement.textContent = '';
-        }, 2000);
+        }, 3000);
       }
     });
   }
