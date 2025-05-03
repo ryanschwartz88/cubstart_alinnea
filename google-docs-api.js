@@ -1,13 +1,11 @@
 // google-docs-api.js - Handles Google Docs API integration
 
 /**
- * Google Docs API wrapper for the ALinnea extension
+ * Google Docs API wrapper for the Alinnea extension
  * Handles authentication and document operations
  */
 class GoogleDocsAPI {
     constructor() {
-      this.API_SCOPE = 'https://www.googleapis.com/auth/documents';
-      this.DISCOVERY_DOCS = ['https://docs.googleapis.com/$discovery/rest?version=v1'];
       this.isInitialized = false;
       this.isAuthorized = false;
     }
